@@ -10,9 +10,10 @@ db.loadDatabase(function(e) {
   if (Boolean(e)) return console.log(e);
   (async () => {
     console.log('starting');
-    const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']});
+    const browser = await puppeteer.launch({headless: false, args: ['--no-sandbox']});
     const page = await browser.newPage();
     await page.goto(rootURL, { waitUntil: 'networkidle2' });
+    await new Promise(r => setTimeout(r, 10000));
     await new Promise(r => setTimeout(r, waitTime));
   
     const firstSteps = await page.evaluate(() => {
